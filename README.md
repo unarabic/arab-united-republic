@@ -138,4 +138,59 @@ function App() {
   );
 }
 
-export default App;
+export default App;<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>خدمات الجمهورية العربية المتحدة</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f4f4; direction: rtl; }
+  .map { width: 100%; height: 500px; background: url('map-placeholder.png') no-repeat center/contain; position: relative; }
+  .service { position: absolute; cursor: pointer; padding: 5px 10px; background: #0077cc; color: white; border-radius: 5px; }
+  #info { margin-top: 20px; padding: 15px; background: white; border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<h1>الجمهورية العربية المتحدة – الخدمات الرقمية</h1>
+
+<div class="map">
+  <div class="service" style="top: 50px; left: 100px;" onclick="showInfo('البنك المركزي')">البنك المركزي</div>
+  <div class="service" style="top: 150px; left: 300px;" onclick="showInfo('البرلمان')">البرلمان</div>
+  <div class="service" style="top: 250px; left: 200px;" onclick="showInfo('وزارة الاقتصاد')">وزارة الاقتصاد</div>
+  <div class="service" style="top: 350px; left: 400px;" onclick="showInfo('وزارة التعليم')">وزارة التعليم</div>
+  <div class="service" style="top: 450px; left: 150px;" onclick="showInfo('وزارة الصحة')">وزارة الصحة</div>
+</div>
+
+<div id="info">
+  اضغط على أي وزارة أو خدمة لمعرفة التفاصيل.
+</div>
+
+<script>
+function showInfo(serviceName) {
+  let infoText = "";
+  switch(serviceName) {
+    case "البنك المركزي":
+      infoText = "البنك المركزي يصدر ويُدير الدينار العربي (DAD) ويشرف على التفويضات المالية.";
+      break;
+    case "البرلمان":
+      infoText = "البرلمان الرقمي يصدر التشريعات وينظم السياسات العامة للجمهورية.";
+      break;
+    case "وزارة الاقتصاد":
+      infoText = "وزارة الاقتصاد الذكية تدير التجارة الرقمية، الأسواق المشتركة، والاستثمارات.";
+      break;
+    case "وزارة التعليم":
+      infoText = "وزارة التعليم توفر المنصات التعليمية الرقمية والتدريب الافتراضي للمواطنين.";
+      break;
+    case "وزارة الصحة":
+      infoText = "وزارة الصحة الذكية توفر خدمات الرعاية الصحية الرقمية، مثل حجز المواعيد ومتابعة العلاج.";
+      break;
+    default:
+      infoText = "اختر خدمة لمعرفة التفاصيل.";
+  }
+  document.getElementById("info").innerHTML = `<h3>${serviceName}</h3><p>${infoText}</p>`;
+}
+</script>
+
+</body>
+</html>
