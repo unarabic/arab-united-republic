@@ -105,4 +105,37 @@ app.post("/withdraw", async (req, res) => {
   }
 });
 
-app.listen(3001, () => console.log("Server running on port 3001"));
+app.listen(3001, () => console.log("Server running on port 3001"));import React, { useState } from "react";
+import { ethers } from "ethers";
+import CONTRACT_ABI from "./abi/DinarArabToken.json";
+
+const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS";
+
+function App() {
+  const [amount, setAmount] = useState("");
+  const [agent, setAgent] = useState("");
+  
+  const requestWithdrawal = async () => {
+    if (!window.ethereum) return alert("Install MetaMask");
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+    const tx = await contract.requestCashWithdrawal(ethers.utils.parseUnits(amount, 18), agent);
+    await tx.wait();
+    alert("Request sent successfully!");
+  };
+
+  return (
+    <div>
+      <h1>طلب سحب نقدي</h1>
+      <input type="text" placeholder="المبلغ" value={amount} onChange={e => setAmount(e.target.value)} />
+      <input type="text" placeholder="عنوان الوكيل المفوض" value={agent} onChange={e => setAgent(e.target.value)} />
+      <button onClick={requestWithdrawal}>إرسال الطلب</button>
+    </div>
+  );
+}
+
+export default App;
